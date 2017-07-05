@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8>
+		<title>Space Network Game</title>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+		<script src="http://localhost:8080/socket.io/socket.io.js"></script>
+		<script src="js/three.min.js"></script>
+		<script src="js/threex.keyboardstate.js"></script>
+		<script src="js/OrbitControls.js"></script>
+		<script src="js/OBJLoader.js"></script>
+		<script src="Client.js"></script>
+		<script>
+			var socket = io();
+			
+			socket.on('connect', function() {
+        		loadWorld();
+			});
+
+			socket.on('initialize', function(data) {
+        		initialize(data);
+			});
+
+			socket.on('sendAllPlayers', function(data) {
+        		updatePlayers(data);
+			});
+
+			socket.on('death', function() {
+        		death();
+			});
+		</script>
+	</body>
+</html>
